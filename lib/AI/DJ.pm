@@ -59,9 +59,16 @@ has verbose => (
 
 Create a new C<AI::DJ> object.
 
-=for Pod::Coverage BUILD
+=head2 chat
+
+  $text = $dj->chat;
+
+Talk like a DJ.
 
 =cut
+
+sub chat {
+}
 
 1;
 __END__
@@ -70,6 +77,10 @@ __END__
 
 L<Moo>
 
-L<http://somewhere.el.se>
+L<OpenAPI::Client::OpenAI>
+
+L<Types::Standard>
+
+L<http://openai.com>
 
 =cut
