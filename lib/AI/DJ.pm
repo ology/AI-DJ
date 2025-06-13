@@ -7,6 +7,7 @@ our $VERSION = '0.0100';
 use Moo;
 use strictures 2;
 use Carp qw(croak);
+use OpenAPI::Client::OpenAI ();
 use Types::Standard qw(Bool);
 use namespace::clean;
 
@@ -21,6 +22,20 @@ use namespace::clean;
 An C<AI::DJ> is an AI radio DJ.
 
 =head1 ATTRIBUTES
+
+=head2 client
+
+  $client = $dj->client;
+
+The L<OpenAPI::Client::OpenAI> object.
+
+=cut
+
+has client => (
+    is      => 'ro',
+    isa     => sub { croak "$_[0] is not a valid OpenAI client" unless ref($_[0]) =~ /^OpenAPI::Client::OpenAI/ },
+    default => sub { OpenAPI::Client::OpenAI->new },
+);
 
 =head2 verbose
 
