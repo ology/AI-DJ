@@ -8,7 +8,7 @@ use Moo;
 use strictures 2;
 use Carp qw(croak);
 use OpenAPI::Client::OpenAI ();
-use Types::Standard qw(Bool);
+use Types::Standard qw(Bool Str);
 use namespace::clean;
 
 =head1 SYNOPSIS
@@ -35,6 +35,20 @@ has client => (
     is      => 'ro',
     isa     => sub { croak "$_[0] is not a valid OpenAI client" unless ref($_[0]) =~ /^OpenAPI::Client::OpenAI/ },
     default => sub { OpenAPI::Client::OpenAI->new },
+);
+
+=head2 model
+
+  $model = $dj->model;
+
+Show progress.
+
+=cut
+
+has model => (
+    is      => 'ro',
+    isa     => Str,
+    default => sub { 'gpt-4o-mini' },
 );
 
 =head2 verbose
@@ -68,6 +82,20 @@ Talk like a DJ.
 =cut
 
 sub chat {
+  my ($self, $prompt) = @_;
+  croak 'No prompt given' unless $prompt;
+  my $tx = $self->client->createCompletion(
+      {
+          body => {
+              model       => $self->model,
+              prompt      => $prompt,
+              temperature => 0,   # optional, between 0 and 1, with 0 being the least random
+              max_tokens  => 100, # optional, the maximum number of tokens to generate
+          }
+      }
+  );
+
+  my $response_data = $tx->res->json;
 }
 
 1;
