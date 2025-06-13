@@ -1,29 +1,30 @@
 package AI::DJ;
 
-# ABSTRACT: Moo Module
+# ABSTRACT: An AI Radio DJ
 
 our $VERSION = '0.0100';
 
 use Moo;
 use strictures 2;
 use Carp qw(croak);
+use Types::Standard qw(Bool);
 use namespace::clean;
 
 =head1 SYNOPSIS
 
   use AI::DJ ();
 
-  my $x = AI::DJ->new(verbose => 1);
+  my $dj = AI::DJ->new(verbose => 1);
 
 =head1 DESCRIPTION
 
-A C<AI::DJ> is a Moo module.
+An C<AI::DJ> is an AI radio DJ.
 
 =head1 ATTRIBUTES
 
 =head2 verbose
 
-  $verbose = $x->verbose;
+  $verbose = $dj->verbose;
 
 Show progress.
 
@@ -31,7 +32,7 @@ Show progress.
 
 has verbose => (
     is      => 'ro',
-    isa     => sub { croak "$_[0] is not a boolean" unless $_[0] =~ /^[01]$/ },
+    isa     => Bool,
     default => sub { 0 },
 );
 
@@ -39,7 +40,7 @@ has verbose => (
 
 =head2 new
 
-  $x = AI::DJ->new(verbose => 1);
+  $dj = AI::DJ->new(verbose => 1);
 
 Create a new C<AI::DJ> object.
 
