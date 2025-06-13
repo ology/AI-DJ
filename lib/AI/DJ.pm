@@ -89,8 +89,8 @@ sub chat {
           body => {
               model       => $self->model,
               prompt      => $prompt,
-              temperature => 0,   # optional, between 0 and 1, with 0 being the least random
-              max_tokens  => 100, # optional, the maximum number of tokens to generate
+              temperature => 0,    # optional, between 0 and 1, with 0 being the least random
+              max_tokens  => 1000, # optional, the maximum number of tokens to generate
           }
       }
   );
